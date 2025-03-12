@@ -1,0 +1,21 @@
+.main {
+  max-width: 48rem;
+  justify-self: center;
+}
+
+.main section {
+  width: 48rem;
+}
+
+.logo img {
+  width: 6rem;
+  height: 100%;
+}
+
+hr {
+  width: 100%;
+  background-color: #aaa;
+  height: 2px;
+  border: none;
+  border-radius: 1px;
+}
