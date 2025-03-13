@@ -5,9 +5,9 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   template: `
     <section class="header flex justify-between items-center">
-      <div class="logo flex flex-col items-center space-x-2">
+      <div class="logo flex flex-col items-center">
         <img src="./images/logo.svg" alt="logo" class="mb-1" />
-        <p class="text-sm font-semibold text-gray-800 uppercase">
+        <p class="text-base font-bold text-gray-800 uppercase">
           shelter insurance
         </p>
       </div>

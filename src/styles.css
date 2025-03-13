@@ -67,3 +67,8 @@ hr {
 input {
   outline: none;
 }
+
+section {
+  width: 48rem;
+  padding: 0 1.5rem;
+}
