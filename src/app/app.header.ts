@@ -11,8 +11,11 @@ import { Component, Input } from '@angular/core';
           shelter insurance
         </p>
       </div>
-      <div class="declaration flex flex-col space-around">
-        <h2 class="text-2xl font-bold text-gray-800 mb-2!">
+      <div class="declaration flex flex-col gap-[0.625rem]">
+        <p class="text-base p-1! bg-[#d4dee6] border border-black w-fit ">
+          Policy Number: 6M2644W1945N
+        </p>
+        <h2 class="text-2xl font-bold text-gray-800!">
           House & Home Policy Declarations
         </h2>
         <p class="text-lg text-gray-600">

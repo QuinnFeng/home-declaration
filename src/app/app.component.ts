@@ -10,6 +10,12 @@ interface Contact {
   address: string;
 }
 
+interface Coverage {
+  id: number;
+  type: string;
+  limit: string;
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -84,60 +90,67 @@ interface Contact {
         <p>Policy Period Begins: 12:01 a.m. Standard Time</p>
       </section>
       <hr />
-      <section class="coverage-info">
-    <div class="coverage-table mt-4">
-        <h2 class="gray-box">Coverage Information</h2>
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Coverage Type
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Limit
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Deductible
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        Dwelling
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        $250,000
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        $1,000
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        Personal Property
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        $100,000
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        $500
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        Liability
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        $300,000
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        $0
-                    </td>
-                </tr>
+      <section class="coverage-info flex justify-between items-center">
+        <div class="coverage-table w-auto">
+          <table
+            class="coverage-data border-collapse border-[2px] border-black"
+          >
+            <tbody>
+              <tr>
+                <td class="border p-2">Section 1 - Coverages</td>
+                <td class="border p-2">Limit of Coverage</td>
+              </tr>
+              <tr *ngFor="let coverage of coverages | slice : 0 : 4">
+                <td class="pl-2 border p-2">{{ coverage.type }}</td>
+                <td class="border p-2">{{ coverage.limit }}</td>
+              </tr>
+              <tr>
+                <td class="border p-2">Section 2 - Coverages</td>
+                <td class="border p-2">Limit of Coverage</td>
+              </tr>
+              <tr
+                *ngFor="
+                  let coverage of coverages | slice : 4 : coverages.length
+                "
+              >
+                <td class="pl-2">{{ coverage.type }}</td>
+                <td>{{ coverage.limit }}</td>
+              </tr>
             </tbody>
-        </table>
-    </div>
+          </table>
+        </div>
+        <div
+          class="deductible-info w-[12.5rem] border-[2px] border-black p-[0.625rem] font-bold flex flex-col justify-between items-center gap-[0.625rem]"
+        >
+          <p class="underline ">Deductible = $1000</p>
+          <p>
+            In case of loss under Section 1 and 2, we cover only the amount of
+            loss in excess of the deductible amount.
+          </p>
+        </div>
+      </section>
+      <hr />
+      <section class="discounts flex justify-between font-bold">
+        <ul class="discount-list text-sm">
+          <li
+            *ngFor="
+              let discount of discounts | slice : 0 : discounts.length / 2;
+              let i = index
+            "
+          >
+            <div class="flex">
+              <span class="w-96 whitespace-nowrap">{{
+                getDiscountsPair(i).first
+              }}</span>
+              <span>{{ getDiscountsPair(i).second }}</span>
+            </div>
+          </li>
+        </ul>
+        <div class="premium flex items-end">
+          <div class="gray-box whitespace-nowrap">
+            <span class="text-xs pl-2 pr-2">Policy Premium = $856.15</span>
+          </div>
+        </div>
       </section>
     </main>
   `,
@@ -169,6 +182,57 @@ export class AppComponent {
       address: '7193 Swinnea Rd Ste B, Southaven, MS 38671',
     },
   ];
+
+  coverages: Coverage[] = [
+    {
+      id: 1,
+      type: 'Dwelling',
+      limit: '$450,000',
+    },
+    {
+      id: 2,
+      type: 'Other Structures',
+      limit: '$45,000',
+    },
+    {
+      id: 3,
+      type: 'Personal Property',
+      limit: '$100,000',
+    },
+    {
+      id: 4,
+      type: 'Loss of Use',
+      limit: '$90,000',
+    },
+    {
+      id: 5,
+      type: 'Liability',
+      limit: '$300,000 Each Occurrence',
+    },
+    {
+      id: 6,
+      type: 'Medical Payments',
+      limit: '$1,000 Each Person',
+    },
+  ];
+
+  discounts: string[] = [
+    'Construction: Single Family Residence/Townhouse',
+    'Year Built: 1960',
+    'Not more than 100 feet from the hydrant',
+    'Not more than 5 miles from the fire department',
+    'No prior losses in the last 3 years',
+    'Occupancy Type: Primary residence',
+    'Forms and Endorsements',
+    'Safe Driver Discount',
+    'loyalty customer',
+    'Bundle Package',
+    'Sprinkler System',
+    'Security System',
+    'Electrical System',
+    'Non-Smoker Discount',
+  ];
+
   constructor(private datePipe: DatePipe) {
     const fixedStartDate = new Date('2024-12-06T00:00:00-06:00');
     const endDate = new Date(fixedStartDate);
@@ -176,5 +240,16 @@ export class AppComponent {
 
     this.startDate = this.datePipe.transform(fixedStartDate, 'MMMM d, y')!;
     this.endDate = this.datePipe.transform(endDate, 'MMMM d, y')!;
+  }
+
+  getDiscountsPair(i: number): { first: string; second: string } {
+    const halfLength = Math.floor(this.discounts.length / 2);
+    const firstIndex = i;
+    const secondIndex = i + halfLength;
+
+    return {
+      first: this.discounts[firstIndex],
+      second: this.discounts[secondIndex] || 'No second item', // Handle case when i + halfLength exceeds the array length
+    };
   }
 }
